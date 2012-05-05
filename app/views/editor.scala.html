@@ -27,4 +27,23 @@
         </div>
     </div>
 </div>
+
+
+<script type="text/javascript">
+    var snapshot = "";
+    var dmp = new diff_match_patch();
+
+    window.onload = function () {
+        var editor = document.getElementById('editor');
+
+        editor.onkeyup = function(e){
+
+            var diffs = dmp.diff_main(snapshot, editor.value);
+            dmp.diff_cleanupSemantic(diffs);
+            console.log(diffs);
+
+            snapshot = editor.value;
+        }
+    };
+</script>
 }

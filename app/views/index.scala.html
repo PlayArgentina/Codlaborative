@@ -1,57 +1,6 @@
 @()(implicit flash: Flash)
 
 @main {
-<div class="page-header">
-    <textarea rows="10" cols="20" id="code1" name="code1"></textarea>
-    <hr />
-    <div id="status">???</div>
-</div>
-
-
-<script type="text/javascript">
-    function getCaret(el) {
-        if (el.selectionStart) {
-            return el.selectionStart;
-        } else if (document.selection) {
-            el.focus();
-
-            var r = document.selection.createRange();
-            if (r == null) {
-                return 0;
-            }
-
-            var re = el.createTextRange(),
-            rc = re.duplicate();
-            re.moveToBookmark(r.getBookmark());
-            rc.setEndPoint('EndToStart', re);
-
-            return rc.text.length;
-        }
-        return 0;
-    }
-
-
-    window.onload = function () {
-        var snapshot = "";
-
-        var code1 = document.getElementById('code1'),
-        status = document.getElementById('status');
-
-        code1.onkeyup = function(e){
-
-
-
-
-            snapshot = code1.value;
-        }
-    };
-
-
-
-
-
-</script>
-
     <div class="row">
         <div class="span4 offset4">
             @flash.get("error").map { errorMessage =>
