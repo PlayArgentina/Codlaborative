@@ -11,6 +11,8 @@ trait Command extends Message {
 
 case class Join(coder: String) extends Message
 
+case class NewCoder(coder: String) extends Message
+
 case class Quit(coder: String) extends Message
 
 case class Connected(enumerator: Enumerator[JsValue])
