@@ -3,11 +3,11 @@ package models
 import akka.actor.{Props, Actor}
 import play.api.libs.concurrent._
 import akka.pattern.ask
-import play.api.libs.json.{JsString, JsObject, JsValue}
 import play.api.libs.iteratee._
 import play.api.Play.current
 import akka.util.Timeout
 import akka.util.duration._
+import play.api.libs.json.{JsArray, JsString, JsObject, JsValue}
 
 class CodePad extends Actor {
 
@@ -42,7 +42,10 @@ class CodePad extends Actor {
   def publishUpdate(code: String) {
     val message = JsObject(
       Seq(
-        "code" -> JsString(code)
+        "code" -> JsString(code),
+        "coders" -> JsArray(
+          coders.keySet.toList.map(JsString)
+        )
       )
     )
     coders.foreach {
