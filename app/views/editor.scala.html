@@ -30,47 +30,46 @@
 
 
 <script type="text/javascript" charset="utf-8">
-    var snapshot = "";
-    var dmp = new diff_match_patch();
-
-    window.onload = function () {
-        var editor = document.getElementById('editor');
-
-        editor.onkeyup = function(e){
-
-            var diffs = dmp.diff_main(snapshot, editor.value);
-            dmp.diff_cleanupSemantic(diffs);
-            console.log(diffs);
-
-            snapshot = editor.value;
-        }
-    };
-
     $(function() {
-			var WS = window['MozWebSocket'] ? MozWebSocket : WebSocket
-            var editorSocket = new WS("@routes.Application.join(username).webSocketURL()")
+        var snapshot = "";
+        var dmp = new diff_match_patch();
+        var editor = $("#editor");
 
+        var WS = window['MozWebSocket'] ? MozWebSocket : WebSocket
+        var editorSocket = new WS("@routes.Application.join(username).webSocketURL()")
+
+
+            // when someone types ...
             var sendMessage = function() {
-                console.log("editor = " + $("#editor").val());
+                console.log("editor = " + editor.val());
+
+                // calculates the DIFF between snapshot and current window
+                var diffs = dmp.diff_main(snapshot, editor.val());
+                dmp.diff_cleanupSemantic(diffs);
+
                 editorSocket.send(JSON.stringify(
-                    {command: "edit", code: $("#editor").val()}
+                    {command: "edit", code: diffs}
                 ))
+
+                snapshot = editor.val();
             }
 
             var receiveEvent = function(event) {
                 var data = JSON.parse(event.data)
 
                 console.log(event)
-                $("#editor").val( data.code )
+                //$("#editor").val( data.code )
 
                 // Update the members list
                 //$("#users").html('')
                 //$(data.members).each(function() {
                 //    $("#users").append('<li>' + this + '</li>')
                 //})
+
+
             }
 
-            $("#editor").keyup(sendMessage)
+            editor.keyup(sendMessage)
             editorSocket.onmessage = receiveEvent
 
         })
