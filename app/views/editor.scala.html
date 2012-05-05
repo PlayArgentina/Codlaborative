@@ -10,12 +10,8 @@
 
     <div class="span4">
         <h3>Developers</h3>
-        <ul id="users">
-            <li>user1</li>
-            <li>user2</li>
-            <li>user3</li>
-            <li>user4</li>
-            <li>user5</li>
+        <ul id="coders">
+            <li>@username</li>
         </ul>
     </div>
 </div>
@@ -48,10 +44,10 @@
                 $("#editor").val( data.code )
 
                 // Update the members list
-                //$("#users").html('')
-                //$(data.members).each(function() {
-                //    $("#users").append('<li>' + this + '</li>')
-                //})
+                $("#coders").html('')
+                $(data.coders).each(function() {
+                    $("#coders").append('<li>' + this + '</li>')
+                })
             }
 
             $("#editor").keyup(sendMessage)
