@@ -1,74 +1,63 @@
-2012-05-05 12:25:43,137 - [INFO] - from play in main 
+2012-05-05 12:42:05,111 - [INFO] - from play in main 
 Listening for HTTP on port 9000...
 
-2012-05-05 12:25:54,215 - [ERROR] - from application in New I/O server worker #1-1 
-
-
-! Internal server error, for request [GET /] ->
-
-sbt.PlayExceptions$CompilationException: Compilation error [type mismatch;
- found   : java.lang.String("Welcome to Play 2.0")
- required: play.api.templates.Html]
-	at sbt.PlayReloader$$anon$2$$anonfun$reload$3$$anonfun$2$$anonfun$apply$11$$anonfun$apply$12.apply(PlayReloader.scala:224) ~[na:na]
-	at sbt.PlayReloader$$anon$2$$anonfun$reload$3$$anonfun$2$$anonfun$apply$11$$anonfun$apply$12.apply(PlayReloader.scala:224) ~[na:na]
-	at scala.Option.map(Option.scala:133) ~[scala-library.jar:0.11.2]
-	at sbt.PlayReloader$$anon$2$$anonfun$reload$3$$anonfun$2$$anonfun$apply$11.apply(PlayReloader.scala:224) ~[na:na]
-	at sbt.PlayReloader$$anon$2$$anonfun$reload$3$$anonfun$2$$anonfun$apply$11.apply(PlayReloader.scala:221) ~[na:na]
-	at scala.Option.map(Option.scala:133) ~[scala-library.jar:0.11.2]
-	at sbt.PlayReloader$$anon$2$$anonfun$reload$3$$anonfun$2.apply(PlayReloader.scala:221) ~[na:na]
-	at sbt.PlayReloader$$anon$2$$anonfun$reload$3$$anonfun$2.apply(PlayReloader.scala:219) ~[na:na]
-	at scala.Either$LeftProjection.map(Either.scala:183) ~[scala-library.jar:0.11.2]
-	at sbt.PlayReloader$$anon$2$$anonfun$reload$3.apply(PlayReloader.scala:219) ~[na:na]
-	at sbt.PlayReloader$$anon$2$$anonfun$reload$3.apply(PlayReloader.scala:214) ~[na:na]
-	at scala.Option.getOrElse(Option.scala:108) ~[scala-library.jar:0.11.2]
-	at sbt.PlayReloader$$anon$2.reload(PlayReloader.scala:214) ~[na:na]
-	at play.core.ReloadableApplication$$anonfun$get$1.apply(ApplicationProvider.scala:110) ~[play_2.9.1.jar:2.0.1]
-	at play.core.ReloadableApplication$$anonfun$get$1.apply(ApplicationProvider.scala:110) ~[play_2.9.1.jar:2.0.1]
-	at akka.dispatch.Future$$anon$3.liftedTree1$1(Future.scala:195) ~[akka-actor.jar:2.0.1]
-	at akka.dispatch.Future$$anon$3.run(Future.scala:194) ~[akka-actor.jar:2.0.1]
-	at akka.dispatch.TaskInvocation.run(AbstractDispatcher.scala:83) ~[akka-actor.jar:2.0.1]
-	at akka.jsr166y.ForkJoinTask$AdaptedRunnableAction.exec(ForkJoinTask.java:1381) ~[akka-actor.jar:2.0.1]
-	at akka.jsr166y.ForkJoinTask.doExec(ForkJoinTask.java:259) ~[akka-actor.jar:2.0.1]
-	at akka.jsr166y.ForkJoinPool$WorkQueue.runTask(ForkJoinPool.java:974) ~[akka-actor.jar:2.0.1]
-	at akka.jsr166y.ForkJoinPool.runWorker(ForkJoinPool.java:1478) ~[akka-actor.jar:2.0.1]
-	at akka.jsr166y.ForkJoinWorkerThread.run(ForkJoinWorkerThread.java:104) ~[akka-actor.jar:2.0.1]
-
-2012-05-05 12:26:28,244 - [ERROR] - from application in New I/O server worker #1-1 
-
-
-! Internal server error, for request [GET /] ->
-
-sbt.PlayExceptions$CompilationException: Compilation error [too many arguments for method apply: ()play.api.templates.Html in object index]
-	at sbt.PlayReloader$$anon$2$$anonfun$reload$3$$anonfun$2$$anonfun$apply$11$$anonfun$apply$12.apply(PlayReloader.scala:224) ~[na:na]
-	at sbt.PlayReloader$$anon$2$$anonfun$reload$3$$anonfun$2$$anonfun$apply$11$$anonfun$apply$12.apply(PlayReloader.scala:224) ~[na:na]
-	at scala.Option.map(Option.scala:133) ~[scala-library.jar:0.11.2]
-	at sbt.PlayReloader$$anon$2$$anonfun$reload$3$$anonfun$2$$anonfun$apply$11.apply(PlayReloader.scala:224) ~[na:na]
-	at sbt.PlayReloader$$anon$2$$anonfun$reload$3$$anonfun$2$$anonfun$apply$11.apply(PlayReloader.scala:221) ~[na:na]
-	at scala.Option.map(Option.scala:133) ~[scala-library.jar:0.11.2]
-	at sbt.PlayReloader$$anon$2$$anonfun$reload$3$$anonfun$2.apply(PlayReloader.scala:221) ~[na:na]
-	at sbt.PlayReloader$$anon$2$$anonfun$reload$3$$anonfun$2.apply(PlayReloader.scala:219) ~[na:na]
-	at scala.Either$LeftProjection.map(Either.scala:183) ~[scala-library.jar:0.11.2]
-	at sbt.PlayReloader$$anon$2$$anonfun$reload$3.apply(PlayReloader.scala:219) ~[na:na]
-	at sbt.PlayReloader$$anon$2$$anonfun$reload$3.apply(PlayReloader.scala:214) ~[na:na]
-	at scala.Option.getOrElse(Option.scala:108) ~[scala-library.jar:0.11.2]
-	at sbt.PlayReloader$$anon$2.reload(PlayReloader.scala:214) ~[na:na]
-	at play.core.ReloadableApplication$$anonfun$get$1.apply(ApplicationProvider.scala:110) ~[play_2.9.1.jar:2.0.1]
-	at play.core.ReloadableApplication$$anonfun$get$1.apply(ApplicationProvider.scala:110) ~[play_2.9.1.jar:2.0.1]
-	at akka.dispatch.Future$$anon$3.liftedTree1$1(Future.scala:195) ~[akka-actor.jar:2.0.1]
-	at akka.dispatch.Future$$anon$3.run(Future.scala:194) ~[akka-actor.jar:2.0.1]
-	at akka.dispatch.TaskInvocation.run(AbstractDispatcher.scala:83) ~[akka-actor.jar:2.0.1]
-	at akka.jsr166y.ForkJoinTask$AdaptedRunnableAction.exec(ForkJoinTask.java:1381) ~[akka-actor.jar:2.0.1]
-	at akka.jsr166y.ForkJoinTask.doExec(ForkJoinTask.java:259) ~[akka-actor.jar:2.0.1]
-	at akka.jsr166y.ForkJoinPool$WorkQueue.runTask(ForkJoinPool.java:974) ~[akka-actor.jar:2.0.1]
-	at akka.jsr166y.ForkJoinPool.runWorker(ForkJoinPool.java:1478) ~[akka-actor.jar:2.0.1]
-	at akka.jsr166y.ForkJoinWorkerThread.run(ForkJoinWorkerThread.java:104) ~[akka-actor.jar:2.0.1]
-
-2012-05-05 12:26:46,566 - [INFO] - from play in play-akka.actor.default-dispatcher-2 
+2012-05-05 12:42:11,416 - [INFO] - from play in play-akka.actor.default-dispatcher-2 
 Application started (Dev)
 
-2012-05-05 12:29:17,508 - [INFO] - from play in play-akka.actor.default-dispatcher-5 
+2012-05-05 14:01:32,557 - [INFO] - from play in play-akka.actor.default-dispatcher-1 
 Application started (Dev)
 
-2012-05-05 12:29:52,587 - [INFO] - from play in play-akka.actor.default-dispatcher-7 
+2012-05-05 14:02:10,982 - [INFO] - from play in play-akka.actor.default-dispatcher-4 
+Application started (Dev)
+
+2012-05-05 14:06:38,978 - [INFO] - from play in play-akka.actor.default-dispatcher-4 
+Application started (Dev)
+
+2012-05-05 14:07:18,083 - [INFO] - from play in play-akka.actor.default-dispatcher-4 
+Application started (Dev)
+
+2012-05-05 14:10:10,939 - [INFO] - from play in play-akka.actor.default-dispatcher-8 
+Application started (Dev)
+
+2012-05-05 14:13:19,434 - [INFO] - from play in play-akka.actor.default-dispatcher-9 
+Application started (Dev)
+
+2012-05-05 14:13:45,349 - [INFO] - from play in play-akka.actor.default-dispatcher-9 
+Application started (Dev)
+
+2012-05-05 14:15:45,762 - [INFO] - from play in play-akka.actor.default-dispatcher-9 
+Application started (Dev)
+
+2012-05-05 14:16:48,465 - [INFO] - from play in play-akka.actor.default-dispatcher-9 
+Application started (Dev)
+
+2012-05-05 14:24:14,412 - [INFO] - from play in play-akka.actor.default-dispatcher-14 
+Application started (Dev)
+
+2012-05-05 14:27:47,775 - [INFO] - from play in play-akka.actor.default-dispatcher-15 
+Application started (Dev)
+
+2012-05-05 14:28:52,931 - [INFO] - from play in play-akka.actor.default-dispatcher-15 
+Application started (Dev)
+
+2012-05-05 14:29:03,312 - [INFO] - from play in play-akka.actor.default-dispatcher-17 
+Application started (Dev)
+
+2012-05-05 14:29:36,890 - [INFO] - from play in play-akka.actor.default-dispatcher-18 
+Application started (Dev)
+
+2012-05-05 14:32:56,017 - [INFO] - from play in play-akka.actor.default-dispatcher-18 
+Application started (Dev)
+
+2012-05-05 14:36:17,801 - [INFO] - from play in play-akka.actor.default-dispatcher-20 
+Application started (Dev)
+
+2012-05-05 14:36:55,147 - [INFO] - from play in play-akka.actor.default-dispatcher-20 
+Application started (Dev)
+
+2012-05-05 14:41:19,040 - [INFO] - from play in play-akka.actor.default-dispatcher-23 
+Application started (Dev)
+
+2012-05-05 14:56:00,483 - [INFO] - from play in play-akka.actor.default-dispatcher-25 
 Application started (Dev)
 
