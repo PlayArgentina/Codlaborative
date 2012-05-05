@@ -15,6 +15,9 @@ case class NewCoder(coder: String) extends Message
 
 case class Quit(coder: String) extends Message
 
+case class Compile(code: String) extends Message
+case class CompileResult(output: String) extends Message
+
 case class Connected(enumerator: Enumerator[JsValue])
 
 case class Append(username: String, code: String) extends Command

@@ -1,6 +1,5 @@
 package models
 
-import akka.actor.{Props, Actor}
 import play.api.libs.concurrent._
 import akka.pattern.ask
 import play.api.libs.iteratee._
@@ -8,11 +7,19 @@ import play.api.Play.current
 import akka.util.Timeout
 import akka.util.duration._
 import play.api.libs.json.{JsArray, JsString, JsObject, JsValue}
+import akka.actor.{ActorRef, Props, Actor}
 
 class CodePad extends Actor {
 
   var code: String = ""
+  var output: String = ""
+
   var coders = Map.empty[String, PushEnumerator[JsValue]]
+  var compiler : ActorRef = null
+
+  override def preStart() {
+    compiler = context.actorOf(Props[Compiler])
+  }
 
   protected def receive = {
 
@@ -25,30 +32,39 @@ class CodePad extends Actor {
       sender ! Connected(channel)
 
     case NewCoder(coder) =>
-      publishUpdate(code, coder)
+      publishUpdate(code, output, coder)
 
     // Edit code
     case Edit(coder, newCode) =>
       println("Edit(" + coder + "," + newCode + ")")
 
       code = newCode
-      publishUpdate(code, coder)
+      publishUpdate(code, output, coder)
+
+      compiler ! Compile(code)
 
     // Append code
     case Append(coder, newCode) =>
       println("Append(" + coder + "," + newCode + ")")
       code += newCode
-      publishUpdate(code, coder)
+      publishUpdate(code, output, coder)
+
+      compiler ! Compile(code)
 
     case Quit(coder) =>
       coders = coders - coder
-      publishUpdate(code, coder)
+      publishUpdate(code, output, coder)
+
+    case CompileResult(out) =>
+      output = out
+      publishUpdate(code, output, "compiler")
   }
 
-  def publishUpdate(code: String, author: String) {
+  def publishUpdate(code: String, output: String, author: String) {
     val message = JsObject(
       Seq(
         "code" -> JsString(code),
+        "output" -> JsString(output),
         "author" -> JsString(author),
         "coders" -> JsArray(
           coders.keySet.toList.map(JsString)
@@ -112,3 +128,11 @@ object CodePad {
   }
 }
 
+class Compiler extends Actor {
+  protected def receive = {
+    case Compile(code) => {
+      println("compiling ..." + code)
+      sender ! CompileResult(util.InlineCompiler.result(code))
+    }
+  }
+}

@@ -1,5 +1,4 @@
 target
 *.iml
-logs/*
-logs/*.log
-.idea/*
+logs
+.idea
