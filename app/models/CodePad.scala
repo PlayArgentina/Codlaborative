@@ -3,11 +3,11 @@ package models
 import akka.actor.{Props, Actor}
 import play.api.libs.concurrent._
 import akka.pattern.ask
-import play.api.libs.json.{JsString, JsObject, JsValue}
 import play.api.libs.iteratee._
 import play.api.Play.current
 import akka.util.Timeout
 import akka.util.duration._
+import play.api.libs.json.{JsArray, JsString, JsObject, JsValue}
 
 class CodePad extends Actor {
 
@@ -18,6 +18,7 @@ class CodePad extends Actor {
 
     // Join code pad
     case Join(coder) =>
+      println("Join(" + coder + ")")
       val channel = Enumerator.imperative[JsValue]()
       coders = coders + (coder -> channel)
 
@@ -25,11 +26,14 @@ class CodePad extends Actor {
 
     // Edit code
     case Edit(coder, newCode) =>
+      println("Edit(" + coder + "," + newCode + ")")
+
       code = newCode
       publishUpdate(newCode)
 
     // Append code
     case Append(coder, newCode) =>
+      println("Append(" + coder + "," + newCode + ")")
       code += newCode
       publishUpdate(coder)
 
@@ -38,7 +42,10 @@ class CodePad extends Actor {
   def publishUpdate(code: String) {
     val message = JsObject(
       Seq(
-        "code" -> JsString(code)
+        "code" -> JsString(code),
+        "coders" -> JsArray(
+          coders.keySet.toList.map(JsString)
+        )
       )
     )
     coders.foreach {
@@ -82,6 +89,7 @@ object CodePad {
 
   private def messageForEvent(event: JsValue, username: String): Message = {
     // Extract parameters
+    println("messageForEvent(" + event + "," + username + ")")
     val command = (event \ "command").as[String]
     val code = (event \ "code").as[String]
 
@@ -89,6 +97,8 @@ object CodePad {
     val message = command match {
       case "append" =>
         Append(username, code)
+      case "edit" =>
+        Edit(username, code)
     }
 
     message

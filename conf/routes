@@ -5,7 +5,8 @@
 # Home page
 GET     /                           controllers.Application.index
 POST    /signin                     controllers.Application.signIn
-GET     /editor/:username           controllers.Application.editor(username: String)
+GET     /editor/:username           controllers.Application.editor(username)
+GET     /editor/join/:coder         controllers.Application.join(coder)
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.at(path="/public", file)
