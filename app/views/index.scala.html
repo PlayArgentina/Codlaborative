@@ -1,3 +1,5 @@
+@()(implicit flash: Flash)
+
 @main {
 <div class="page-header">
     <textarea rows="10" cols="20" id="code1" name="code1"></textarea>
@@ -50,4 +52,19 @@
 
 </script>
 
+    <div class="row">
+        <div class="span4 offset4">
+            @flash.get("error").map { errorMessage =>
+            <div class="alert alert-error">
+                <p>
+                    @errorMessage
+                </p>
+            </div>
+            }
+            <form action="@routes.Application.signIn()" method="POST" class="well form">
+                <input name="username" type="text" class="input" placeholder="Name">
+                <button type="submit" class="btn">Sign in</button>
+            </form>
+        </div>
+    </div>
 }

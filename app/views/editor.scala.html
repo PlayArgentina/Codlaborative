@@ -1,0 +1,30 @@
+@(username: String)
+
+@main {
+<div class="page-header">Hi @username, enter your Scala code</div>
+
+<div class="row">
+    <div class="span8">
+        <textarea id="editor" rows="15" cols="100" style="resize:none; width:100%"></textarea>
+    </div>
+
+    <div class="span4">
+        <h3>Developers</h3>
+        <ul id="users">
+            <li>user1</li>
+            <li>user2</li>
+            <li>user3</li>
+            <li>user4</li>
+            <li>user5</li>
+        </ul>
+    </div>
+</div>
+
+<div class="row">
+    <div class="span12">
+        <div class="well">
+            Compiler output ....
+        </div>
+    </div>
+</div>
+}
