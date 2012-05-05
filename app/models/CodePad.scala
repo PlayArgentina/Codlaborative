@@ -40,6 +40,9 @@ class CodePad extends Actor {
       code += newCode
       publishUpdate(code, coder)
 
+    case Quit(coder) =>
+      coders = coders - coder
+      publishUpdate(code, coder)
   }
 
   def publishUpdate(code: String, author: String) {
