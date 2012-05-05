@@ -1,3 +1,11 @@
 @main {
-    <div class="page-header">Hello</div>
+    <div class="row">
+
+        <div class="span4 offset4">
+            <form action="@routes.Application.signIn()" method="POST" class="well form">
+                <input name="username" type="text" class="input" placeholder="Name">
+                <button type="submit" class="btn">Sign in</button>
+            </form>
+        </div>
+    </div>
 }
