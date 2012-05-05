@@ -19,30 +19,37 @@ class CodePad extends Actor {
     // Join code pad
     case Join(coder) =>
       println("Join(" + coder + ")")
-      val channel = Enumerator.imperative[JsValue]()
+      val channel = Enumerator.imperative[JsValue](onStart = self ! NewCoder(coder))
       coders = coders + (coder -> channel)
 
       sender ! Connected(channel)
+
+    case NewCoder(coder) =>
+      publishUpdate(code, coder)
 
     // Edit code
     case Edit(coder, newCode) =>
       println("Edit(" + coder + "," + newCode + ")")
 
       code = newCode
-      publishUpdate(newCode)
+      publishUpdate(code, coder)
 
     // Append code
     case Append(coder, newCode) =>
       println("Append(" + coder + "," + newCode + ")")
       code += newCode
-      publishUpdate(coder)
+      publishUpdate(code, coder)
 
+    case Quit(coder) =>
+      coders = coders - coder
+      publishUpdate(code, coder)
   }
 
-  def publishUpdate(code: String) {
+  def publishUpdate(code: String, author: String) {
     val message = JsObject(
       Seq(
         "code" -> JsString(code),
+        "author" -> JsString(author),
         "coders" -> JsArray(
           coders.keySet.toList.map(JsString)
         )
