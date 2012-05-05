@@ -1,4 +1,4 @@
-@(username: String)
+@(username: String)(implicit request: RequestHeader)
 
 @main {
 <div class="page-header">Hi @username, enter your Scala code</div>
@@ -27,4 +27,37 @@
         </div>
     </div>
 </div>
+
+
+<script type="text/javascript" charset="utf-8">
+    $(function() {
+			var WS = window['MozWebSocket'] ? MozWebSocket : WebSocket
+            var editorSocket = new WS("@routes.Application.join(username).webSocketURL()")
+
+            var sendMessage = function() {
+                console.log("editor = " + $("#editor").val());
+                editorSocket.send(JSON.stringify(
+                    {command: "edit", code: $("#editor").val()}
+                ))
+            }
+
+            var receiveEvent = function(event) {
+                var data = JSON.parse(event.data)
+
+                console.log(event)
+                $("#editor").val( data.code )
+
+                // Update the members list
+                //$("#users").html('')
+                //$(data.members).each(function() {
+                //    $("#users").append('<li>' + this + '</li>')
+                //})
+            }
+
+            $("#editor").keyup(sendMessage)
+            editorSocket.onmessage = receiveEvent
+
+        })
+
+</script>
 }

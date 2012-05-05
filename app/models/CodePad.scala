@@ -18,6 +18,7 @@ class CodePad extends Actor {
 
     // Join code pad
     case Join(coder) =>
+      println("Join(" + coder + ")")
       val channel = Enumerator.imperative[JsValue]()
       coders = coders + (coder -> channel)
 
@@ -25,11 +26,14 @@ class CodePad extends Actor {
 
     // Edit code
     case Edit(coder, newCode) =>
+      println("Edit(" + coder + "," + newCode + ")")
+
       code = newCode
       publishUpdate(newCode)
 
     // Append code
     case Append(coder, newCode) =>
+      println("Append(" + coder + "," + newCode + ")")
       code += newCode
       publishUpdate(coder)
 
@@ -82,6 +86,7 @@ object CodePad {
 
   private def messageForEvent(event: JsValue, username: String): Message = {
     // Extract parameters
+    println("messageForEvent(" + event + "," + username + ")")
     val command = (event \ "command").as[String]
     val code = (event \ "code").as[String]
 
@@ -89,6 +94,8 @@ object CodePad {
     val message = command match {
       case "append" =>
         Append(username, code)
+      case "edit" =>
+        Edit(username, code)
     }
 
     message

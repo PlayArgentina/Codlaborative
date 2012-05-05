@@ -23,7 +23,7 @@ object Application extends Controller {
   }
 
   def editor(username: String) = Action {
-    request => Ok(views.html.editor(username))
+    implicit request => Ok(views.html.editor(username))
   }
 
   def join(coder: String) = WebSocket.async[JsValue] { request  =>
