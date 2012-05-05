@@ -11,12 +11,13 @@ object Application extends Controller {
   val loginForm = Form( "username" -> nonEmptyText)
 
   def index = Action {
+    implicit request =>
     Ok(views.html.index())
   }
 
   def signIn = Action { implicit request =>
     loginForm.bindFromRequest().fold (
-      formWithErrors => BadRequest(views.html.index()),
+      formWithErrors => Redirect(routes.Application.index()).flashing("error" -> "Enter your name"),
       user => Redirect( routes.Application.editor(user))
     )
   }

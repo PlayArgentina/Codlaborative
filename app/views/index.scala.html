@@ -1,7 +1,15 @@
+@()(implicit flash: Flash)
+
 @main {
     <div class="row">
-
         <div class="span4 offset4">
+            @flash.get("error").map { errorMessage =>
+            <div class="alert alert-error">
+                <p>
+                    @errorMessage
+                </p>
+            </div>
+            }
             <form action="@routes.Application.signIn()" method="POST" class="well form">
                 <input name="username" type="text" class="input" placeholder="Name">
                 <button type="submit" class="btn">Sign in</button>
