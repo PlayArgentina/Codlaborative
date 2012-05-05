@@ -18,8 +18,9 @@
 
 <div class="row">
     <div class="span12">
-        <div class="well">
-            Compiler output ....
+        <h3>Eval output</h3>
+        <div id="eval_output" class="well">
+
         </div>
     </div>
 </div>
@@ -27,45 +28,37 @@
 
 <script type="text/javascript" charset="utf-8">
     $(function() {
-        var snapshot = "";
-        var dmp = new diff_match_patch();
-        var editor = $("#editor");
+			var WS = window['MozWebSocket'] ? MozWebSocket : WebSocket
+            var editorSocket = new WS("@routes.Application.join(username).webSocketURL()")
 
-        var WS = window['MozWebSocket'] ? MozWebSocket : WebSocket
-        var editorSocket = new WS("@routes.Application.join(username).webSocketURL()")
-
-
-            // when someone types ...
             var sendMessage = function() {
-                console.log("editor = " + editor.val());
-
-                // calculates the DIFF between snapshot and current window
-                var diffs = dmp.diff_main(snapshot, editor.val());
-                dmp.diff_cleanupSemantic(diffs);
-
+                console.log("editor = " + $("#editor").val());
                 editorSocket.send(JSON.stringify(
-                    {command: "edit", code: diffs}
+                    {command: "edit", code: $("#editor").val()}
                 ))
-
-                snapshot = editor.val();
             }
 
             var receiveEvent = function(event) {
                 var data = JSON.parse(event.data)
 
                 console.log(event)
-                //$("#editor").val( data.code )
+                $("#editor").val( data.code )
 
                 // Update the members list
                 $("#coders").html('')
                 $(data.coders).each(function() {
                     $("#coders").append('<li>' + this + '</li>')
                 })
+
+                // Update eval output
+                $("#eval_output").html('')
+                $("#eval_output").html(data.code)
             }
 
-            editor.keyup(sendMessage)
+            $("#editor").keyup(sendMessage)
             editorSocket.onmessage = receiveEvent
 
         })
+
 </script>
 }
