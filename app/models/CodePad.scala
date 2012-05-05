@@ -129,10 +129,28 @@ object CodePad {
 }
 
 class Compiler extends Actor {
+
+  var code : String = ""
+  var prevCode : String = ""
+
+  case object Tick
+
+  override def preStart() {
+    Akka.system.scheduler.schedule(0 seconds, 1 seconds, self, Tick)
+
+  }
+
   protected def receive = {
-    case Compile(code) => {
-      println("compiling ..." + code)
-      sender ! CompileResult(util.InlineCompiler.result(code))
+
+    case Compile(c) => {
+      code = c
+    }
+    case Tick => {
+      if (prevCode != code) {
+        println("compiling ..." + code)
+        CodePad.actor ! CompileResult(util.InlineCompiler.result(code))
+        prevCode = code
+      }
     }
   }
 }
